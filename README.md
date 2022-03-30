@@ -35,8 +35,7 @@ Verificamos el funcionamiento desde el browser
 
 ![](parcial/img8.png)
 
-
-
-
 y verificamos el funcionamiento
 
+
+shorturl.at/qzGT2
