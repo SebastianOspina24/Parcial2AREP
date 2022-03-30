@@ -1,0 +1,1 @@
+java -Dmaquina1=ec2-54-234-160-165.compute-1.amazonaws.com  -Dmaquina2=ec2-44-202-22-195.compute-1.amazonaws.com -cp target/classes/:target/dependency/* edu.eci.arep.SparkWebApp

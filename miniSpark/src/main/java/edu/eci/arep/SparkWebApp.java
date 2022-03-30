@@ -7,11 +7,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 public class SparkWebApp {
 
+    static Queue<String> variable =  new LinkedList<String>();
+
     public static void main(String[] args) {
+        variable.add(System.getProperty("maquina1"));
+        variable.add(System.getProperty("maquina2"));
         port(getPort());
         get("/log",(req, res)->{
             res.type("application/json");
@@ -24,7 +30,7 @@ public class SparkWebApp {
         
     }
     static String callBack(String service,String param) throws IOException{
-        URL url = new URL(getdestination(service)+service+"?value="+param);
+        URL url = new URL("http://"+getdestination()+":5000/"+service+"?value="+param);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.getResponseCode();
@@ -37,8 +43,10 @@ public class SparkWebApp {
                     br.close();
         return sb.toString();
     }
-    static String getdestination(String a){
-        return a=="log"?"http://ec2-44-202-22-195.compute-1.amazonaws.com:5000/":"http://ec2-54-234-160-165.compute-1.amazonaws.com:5000/";
+    static String getdestination(){
+        String temp = variable.peek();
+        variable.add(temp);
+        return temp;
     }
     static int getPort() {
         if (System.getenv("PORT") != null) {
